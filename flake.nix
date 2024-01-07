@@ -3,7 +3,7 @@
 
   outputs = { self }: {
 
-    # Templates for developing scala-apps
+    # templates for developing scala-apps
     templates = {
       scala-cli-app = {
         src = ./templates/scala-cli-app;
@@ -11,10 +11,8 @@
       };
     };
 
-    # Packages for scala dev
-    packages = { };
+    # utils for building scala apps
+    lib = { mkBuildScalaApp = import ./lib/build-scala-app.nix; };
 
-    # Apps for scala dev
-    apps = { };
   };
 }

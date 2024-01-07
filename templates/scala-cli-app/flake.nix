@@ -4,26 +4,51 @@
     typelevel-nix.url = "github:typelevel/typelevel-nix";
     nixpkgs.follows = "typelevel-nix/nixpkgs";
     flake-utils.follows = "typelevel-nix/flake-utils";
+    my-utils.url = "github:ramytanios/nix-utils-scala-dev";
   };
 
-  outputs = { self, nixpkgs, typelevel-nix, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ typelevel-nix.overlay ];
-        };
-      in {
-        devShells = pkgs.devshell.mkShell {
-          imports = [ typelevel-nix.typelevelShell ];
-          name = "app-dev-shell";
-          typelevelShell = {
-            jdk.package = pkgs.jdk;
-            nodejs.enable = true;
-            native.enable = true;
-            native.libraries = [ pkgs.zlib pkgs.s2n-tls pkgs.openssl ];
+  outputs = { self, nixpkgs, typelevel-nix, flake-utils, my-utils }:
+    let
+      inherit (flake-utils.lib) eachDefaultSystem;
+      version = if (self ? rev) then self.rev else "dirty";
+
+    in {
+      # devshells
+      devShells = eachDefaultSystem (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ typelevel-nix.overlay ];
           };
-          packages = with pkgs; [ which ];
-        };
-      });
+        in {
+          # dev shell
+          default = pkgs.devshell.mkShell {
+            imports = [ typelevel-nix.typelevelShell ];
+            name = "app-dev-shell";
+            typelevelShell = {
+              jdk.package = pkgs.jdk;
+              nodejs.enable = true;
+              native.enable = true;
+              native.libraries = [ pkgs.zlib pkgs.s2n-tls pkgs.openssl ];
+            };
+            packages = with pkgs; [ which ];
+          };
+
+        });
+
+      # packages
+      packages = eachDefaultSystem (system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ ];
+          };
+          buildScalaApp = pkgs.callPackage my-utils.lib.mkBuildScalaApp { };
+        in buildScalaApp {
+          pname = "app";
+          inherit version;
+          src = ./src;
+          supported-platforms = [ "jvm" ];
+        });
+    };
 }
