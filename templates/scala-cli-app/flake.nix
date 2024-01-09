@@ -43,7 +43,7 @@
             inherit system;
             overlays = [ ];
           };
-          buildScalaApp = pkgs.callPackage my-utils.lib.mkBuildScalaApp { };
+          buildScalaApp = my-utils.lib.mkBuildScalaApp { inherit pkgs; };
         in buildScalaApp {
           pname = "app";
           inherit version;

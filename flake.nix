@@ -12,7 +12,12 @@
     };
 
     # utils for building scala apps
-    lib = { mkBuildScalaApp = import ./lib/build-scala-app.nix; };
+    lib = {
+      mkBuildScalaApp = import ./lib/build-scala-app.nix;
+      mkTypelevelShell = import ./lib/scala-typelevel-devshell.nix;
+    };
+
+    # add dev shells
 
   };
 }
