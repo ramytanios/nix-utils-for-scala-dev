@@ -1,8 +1,8 @@
 {
   description = "Hello world Scala app";
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     typelevel-nix.url = "github:typelevel/typelevel-nix";
-    nixpkgs.follows = "typelevel-nix/nixpkgs";
     flake-utils.follows = "typelevel-nix/flake-utils";
     scala-dev.url = "github:ramytanios/nix-lib";
   };
