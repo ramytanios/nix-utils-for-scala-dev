@@ -11,7 +11,6 @@
     let
       version = if (self ? rev) then self.rev else "dirty";
       eachSystem = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
-      lib = import "${scala-dev}/lib/build-scala-app.nix";
     in {
       # devshells
       devShells = eachSystem (system:
