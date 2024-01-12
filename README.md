@@ -14,7 +14,7 @@ nix flake show github:ramytanios/nix-utils-for-scala-dev --refresh
 
 To create a new project from a template:
 ```shell
-nix flake new -t github:buntec/nix-utils-for-scala-dev#scala-cli-app ./my-new-project --refresh
+nix flake new -t github:ramytanios/nix-utils-for-scala-dev#scala-cli-app ./my-new-project --refresh
 ```
 
 # Notes
