@@ -1,6 +1,6 @@
 # nix-utils-for-scala-dev
 
-Based on:
+Attempt to group in one repo the following:
 1. [flake-templates](https://github.com/buntec/flake-templates)
 2. [nix-utils](https://github.com/buntec/nix-utils)
 3. [pkgs](https://github.com/buntec/pkgs)
