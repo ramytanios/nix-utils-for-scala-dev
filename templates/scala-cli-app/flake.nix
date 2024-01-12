@@ -7,11 +7,10 @@
     scala-dev.url = "github:ramytanios/nix-utils-for-scala-dev";
   };
 
-  outputs = { self, nixpkgs, typelevel-nix, flake-utils, ... }:
+  outputs = { self, nixpkgs, typelevel-nix, flake-utils, scala-dev, ... }:
     let
       version = if (self ? rev) then self.rev else "dirty";
       eachSystem = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
-      mkBuildScalaApp = import ../../lib/build-scala-app.nix;
     in {
       # devshells
       devShells = eachSystem (system:
@@ -38,7 +37,7 @@
       packages = eachSystem (system:
         let
           pkgs = import nixpkgs { inherit system; };
-          buildScalaApp = mkBuildScalaApp pkgs;
+          buildScalaApp = scala-dev.lib.mkBuildScalaApp pkgs;
         in buildScalaApp {
           inherit version;
           pname = "app";
