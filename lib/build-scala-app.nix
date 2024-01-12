@@ -109,9 +109,6 @@ let
     '';
   };
 
-in with pkgs.lib;
-mkMerge [
-  (mkIf supports-jvm { jvm-drv = jvm-app-drv; })
-  (mkIf supports-graal { graal-drv = graal-app-drv; })
-]
+in (if supports-jvm then { jvm = jvm-app-drv; } else { })
+// (if supports-graal then { graal = graal-app-drv; } else { })
 
