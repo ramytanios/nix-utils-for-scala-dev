@@ -3,7 +3,7 @@
 
   outputs = _: {
 
-    # templates for developing scala-apps
+    # templates for developing scala apps
     templates = {
       scala-cli-app = {
         src = ./templates/scala-cli-app;
