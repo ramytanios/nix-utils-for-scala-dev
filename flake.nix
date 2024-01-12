@@ -10,6 +10,9 @@
         description = "A scala app built with scala-cli";
       };
     };
+
+    overlays = { };
+    packages = { };
   };
 
 }
