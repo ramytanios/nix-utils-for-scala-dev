@@ -3,8 +3,6 @@
 
   outputs = _: {
 
-    lib = { mkBuildScalaApp = import ./lib/build-scala-app.nix; };
-
     # templates for developing scala apps
     templates = {
       scala-cli-app = {

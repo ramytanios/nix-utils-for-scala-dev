@@ -4,13 +4,14 @@
     typelevel-nix.url = "github:typelevel/typelevel-nix";
     nixpkgs.follows = "typelevel-nix/nixpkgs";
     flake-utils.follows = "typelevel-nix/flake-utils";
-    scala-dev.url = "github:ramytanios/nix-utils-for-scala-dev";
+    scala-dev.url = "github:ramytanios/nix-lib";
   };
 
   outputs = { self, nixpkgs, typelevel-nix, flake-utils, scala-dev, ... }:
     let
       version = if (self ? rev) then self.rev else "dirty";
       eachSystem = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
+      lib = import "${scala-dev}/lib/build-scala-app.nix";
     in {
       # devshells
       devShells = eachSystem (system:
