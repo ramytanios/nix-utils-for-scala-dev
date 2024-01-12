@@ -1,6 +1,6 @@
 # nix-utils-for-scala-dev
 
-* Work in progress -- still flaky ❗*
+*Work in progress -- still flaky* ❗
 
 Attempt to group in one repo the following:
 1. [flake-templates](https://github.com/buntec/flake-templates)
