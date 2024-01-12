@@ -7,7 +7,7 @@
     scala-dev.url = "github:ramytanios/nix-utils-scala-dev";
   };
 
-  outputs = { self, nixpkgs, typelevel-nix, flake-utils, my-utils }:
+  outputs = { self, nixpkgs, typelevel-nix, flake-utils, ... }:
     let
       inherit (flake-utils.lib) eachDefaultSystem;
       version = if (self ? rev) then self.rev else "dirty";
