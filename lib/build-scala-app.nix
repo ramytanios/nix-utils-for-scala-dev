@@ -1,7 +1,6 @@
-{ pkgs }:
+pkgs:
 { pname, version, src, supported-platforms ? [ "jvm" "graal" ], sha256 }:
 with pkgs;
-with pkgs.lib;
 let
 
   supports-jvm = builtins.elem "jvm" supported-platforms;
@@ -11,7 +10,7 @@ let
     [ clang coreutils llvmPackages.libcxxabi openssl s2n-tls which zlib ];
   basic-packages = [ jdk scala-cli ];
   build-packages = basic-packages
-    ++ (if (supports-graal) then native-packages else [ ]);
+    ++ (if supports-graal then native-packages else [ ]);
 
   # coursier deps
   coursier-cache-drv = stdenv.mkDerivation {
@@ -30,7 +29,7 @@ let
       mkdir -p coursier-cache/v1
       mkdir -p coursier-cache/arc
       mkdir -p coursier-cache/jvm
-      scala-cli compile . --java-home=${jdk} --service=false
+      scala-cli compile . --java-home=${jdk} --server=false
     '';
 
     installPhase = ''
@@ -110,7 +109,8 @@ let
     '';
   };
 
-in mkMerge [
+in with pkgs.lib;
+mkMerge [
   (mkIf supports-jvm { jvm-drv = jvm-app-drv; })
   (mkIf supports-graal { graal-drv = graal-app-drv; })
 ]

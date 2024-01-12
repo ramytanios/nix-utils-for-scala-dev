@@ -4,14 +4,14 @@
     typelevel-nix.url = "github:typelevel/typelevel-nix";
     nixpkgs.follows = "typelevel-nix/nixpkgs";
     flake-utils.follows = "typelevel-nix/flake-utils";
-    my-utils.url = "github:ramytanios/nix-utils-scala-dev";
+    scala-dev.url = "github:ramytanios/nix-utils-scala-dev";
   };
 
   outputs = { self, nixpkgs, typelevel-nix, flake-utils, my-utils }:
     let
       inherit (flake-utils.lib) eachDefaultSystem;
       version = if (self ? rev) then self.rev else "dirty";
-
+      mkBuildScalaApp = import ../../lib/build-scala-app.nix;
     in {
       # devshells
       devShells = eachDefaultSystem (system:
@@ -43,7 +43,7 @@
             inherit system;
             overlays = [ ];
           };
-          buildScalaApp = my-utils.lib.mkBuildScalaApp { inherit pkgs; };
+          buildScalaApp = mkBuildScalaApp pkgs;
         in buildScalaApp {
           pname = "app";
           inherit version;

@@ -1,7 +1,7 @@
 {
   description = "Set of utils for scala development";
 
-  outputs = { self }: {
+  outputs = _: {
 
     # templates for developing scala-apps
     templates = {
@@ -10,14 +10,6 @@
         description = "A scala app built with scala-cli";
       };
     };
-
-    # utils for building scala apps
-    lib = {
-      mkBuildScalaApp = import ./lib/build-scala-app.nix;
-      mkTypelevelShell = import ./lib/scala-typelevel-devshell.nix;
-    };
-
-    # add dev shells
-
   };
+
 }
