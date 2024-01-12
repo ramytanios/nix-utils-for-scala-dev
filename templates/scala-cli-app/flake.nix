@@ -4,51 +4,49 @@
     typelevel-nix.url = "github:typelevel/typelevel-nix";
     nixpkgs.follows = "typelevel-nix/nixpkgs";
     flake-utils.follows = "typelevel-nix/flake-utils";
-    scala-dev.url = "github:ramytanios/nix-utils-scala-dev";
+    scala-dev.url = "github:ramytanios/nix-utils-for-scala-dev";
   };
 
   outputs = { self, nixpkgs, typelevel-nix, flake-utils, ... }:
     let
-      inherit (flake-utils.lib) eachDefaultSystem;
       version = if (self ? rev) then self.rev else "dirty";
+      eachSystem = nixpkgs.lib.genAttrs flake-utils.lib.defaultSystems;
       mkBuildScalaApp = import ../../lib/build-scala-app.nix;
     in {
       # devshells
-      devShells = eachDefaultSystem (system:
+      devShells = eachSystem (system:
         let
           pkgs = import nixpkgs {
             inherit system;
             overlays = [ typelevel-nix.overlay ];
           };
         in {
-          # dev shell
           default = pkgs.devshell.mkShell {
             imports = [ typelevel-nix.typelevelShell ];
-            name = "app-dev-shell";
+            name = "watch-shell";
             typelevelShell = {
               jdk.package = pkgs.jdk;
-              nodejs.enable = true;
+              nodejs.enable = false;
               native.enable = true;
               native.libraries = with pkgs; [ zlib s2n-tls openssl ];
             };
             packages = with pkgs; [ which ];
           };
-
         });
 
       # packages
-      packages = eachDefaultSystem (system:
+      packages = eachSystem (system:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ ];
-          };
+          pkgs = import nixpkgs { inherit system; };
           buildScalaApp = mkBuildScalaApp pkgs;
         in buildScalaApp {
-          pname = "app";
           inherit version;
+          pname = "app";
           src = ./src;
           supported-platforms = [ "jvm" ];
+          sha256 = "";
         });
+
+      checks = self.packages;
     };
 }
