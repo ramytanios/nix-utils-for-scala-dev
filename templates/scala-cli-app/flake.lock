@@ -85,11 +85,11 @@
     },
     "scala-dev": {
       "locked": {
-        "lastModified": 1705061756,
-        "narHash": "sha256-WbjdkZ8q69JEG3UfbfILRw/u6y/A7O4lVHnsRTYfdBU=",
+        "lastModified": 1705062385,
+        "narHash": "sha256-euccFHOefhDiOdjdM7Ea2lkFKA6vToPvHfwVUqSgh+Y=",
         "owner": "ramytanios",
         "repo": "nix-lib",
-        "rev": "6b40026cc58167a83bbbb1510c8c6483c0945de7",
+        "rev": "75dc52581707b47e0bbd15934e02f61b4d18da44",
         "type": "github"
       },
       "original": {
