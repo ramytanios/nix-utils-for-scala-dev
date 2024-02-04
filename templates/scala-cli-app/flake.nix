@@ -22,7 +22,7 @@
           inherit pname;
           src = ./src;
           supported-platforms = [ "jvm" ];
-          sha256 = "sha256-ANX8vkLsBaIKPm8cO8rGM5VCVSILS8nDoP4xrjpQoeg=";
+          sha256 = "sha256-W4ytO4LawRkRLZyopemDEf2HawT14Ix+w8SpWfEG65o=";
         };
 
       mkPckgs = system: import nixpkgs { inherit system; };
