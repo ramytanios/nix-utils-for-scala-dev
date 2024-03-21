@@ -9,6 +9,10 @@
         path = ./templates/scala-cli-app;
         description = "A scala app built with scala-cli";
       };
+      scala-sbt-app = {
+        path = ./templates/scala-sbt-app;
+        description = "A scala app built with sbt";
+      };
     };
 
     overlays = { };
