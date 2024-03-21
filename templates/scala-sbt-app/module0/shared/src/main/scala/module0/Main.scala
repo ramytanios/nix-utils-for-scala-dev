@@ -1,4 +1,4 @@
-package module2
+package module0
 
 object Main extends App {
 
