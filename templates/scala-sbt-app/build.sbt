@@ -7,7 +7,7 @@ lazy val V = new {
   val cats = "2.10.0"
 }
 
-lazy val circeVersion = "0.14.6"
+lazy val circeVersion = V.circe
 
 lazy val root =
   (project in file(".")).aggregate(annotations.jvm, schema, examples)
