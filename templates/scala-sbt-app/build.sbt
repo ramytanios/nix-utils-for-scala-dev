@@ -23,7 +23,8 @@ lazy val module0 = crossProject(JVMPlatform, JSPlatform)
     name := "module0",
     scalacOptions -= "-Xfatal-warnings",
     libraryDependencies ++= Seq(
-      "io.github.cquiroz" %%% "scala-java-time" % V.scalaJavaTime
+      "io.github.cquiroz" %%% "scala-java-time" % V.scalaJavaTime,
+      "org.typelevel" %%% "mouse" % V.mouse
     )
   )
 
@@ -43,7 +44,8 @@ lazy val module1 = project
         "co.fs2" %% "fs2-io" % V.fs2,
         "org.typelevel" %% "kittens" % V.kittens,
         "org.typelevel" %% "cats-time" % V.catsTime,
-        "org.typelevel" %% "literally" % V.literally
+        "org.typelevel" %% "literally" % V.literally,
+        "org.typelevel" %% "mouse" % V.mouse
       ),
     scalacOptions -= "-Xfatal-warnings"
   )
